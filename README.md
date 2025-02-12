@@ -1,5 +1,8 @@
 # AgentDsl
 
+# VERY EXPERIMENTAL do not use anywhere!
+### API will change, every day, maybe even two times a day. 
+
 ### Backend API 
 
 - Replicate
