@@ -17,11 +17,12 @@ export GEMINI_API_KEY=xxxx
 export OPENAI_API_KEY=xxxx
 ```
 
-### Example DSL_KEY
+### Example DSL
 
 ```elixir 
 defmodule MyAgent do
   use AgentDSL
+  alias Agent.API.{Replicate, Gemini, OpenAi}
 
   agent do
     initial_state(:ask_intro)
@@ -29,7 +30,7 @@ defmodule MyAgent do
 
     state :ask_intro do
       prompt("""
-      Ask user what job he want to create, using this information: {data["name"]}
+      Ask user what job he want to create, using this information: <%= data["name"] %>}
       """)
 
       backend(API.Replicate)
@@ -58,7 +59,7 @@ defmodule MyAgent do
       backend(API.Gemini)
 
       prompt("""
-      Classify this input: {user_input}
+      Classify this input: <%= user_input %>
 
       answer if user want to repeat -> :repeat
       answer if user want to go next step -> :next
@@ -68,7 +69,7 @@ defmodule MyAgent do
 
     task :extract_title, user_input do
       prompt("""
-      Extract title from this information: {user_input}
+      Extract title from this information: <%= user_input %>
       """)
 
       backend(API.Gemini)
@@ -76,7 +77,7 @@ defmodule MyAgent do
 
     task :extract_tags, user_input do
       prompt("""
-      Extract tags from this information: {user_input}
+      Extract tags from this information: <%= user_input %>
       """)
 
       backend(API.OpenAi)
