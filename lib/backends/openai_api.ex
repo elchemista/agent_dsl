@@ -15,7 +15,7 @@ defmodule Agent.API.OpenAi do
   Returns `{:ok, content}` on success or an error tuple on failure.
   """
   def call(prompt, model \\ @default_model) do
-    token = System.get_env("OPENAI_KEY")
+    token = System.get_env("OPENAI_API_KEY")
 
     body =
       Jason.encode!(%{
@@ -71,7 +71,7 @@ defmodule Agent.API.OpenAi do
   """
   def stream(id, prompt, model \\ @default_model) do
     parent = self()
-    token = System.get_env("OPENAI_KEY")
+    token = System.get_env("OPENAI_API_KEY")
 
     body =
       Jason.encode!(%{

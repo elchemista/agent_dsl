@@ -2,7 +2,6 @@ defmodule Agent.DSL do
   @moduledoc """
   A DSL for building AI-based gen_statem agents with prompts, tasks, and states.
   """
-  alias Agent.API.{Replicate, Gemini, OpenAi}
 
   defmacro __using__(_opts) do
     quote do
@@ -14,6 +13,8 @@ defmodule Agent.DSL do
       Module.register_attribute(__MODULE__, :agent_classifications, accumulate: true)
 
       @before_compile AgentDSL
+
+      alias Agent.API.{Replicate, Gemini, OpenAi}
 
       import AgentDSL,
         only: [
@@ -314,7 +315,7 @@ defmodule Agent.DSL do
             # Use the prompt and backend to do something
             # Possibly EEx.eval_string
             prompt_str = unquote(prompt) || ""
-            backend_mod = unquote(backend_mod) || API.Replicate
+            backend_mod = unquote(backend_mod) || Agent.API.Replicate
             # call your backend
             # e.g. backend_mod.call(prompt_str)
             {result, new_data} = {:fake_result, data}
@@ -355,7 +356,7 @@ defmodule Agent.DSL do
         quote do
           defp unquote(fun_name)(unquote(arg_ast), data) do
             prompt_str = unquote(prompt_ast) || ""
-            backend_mod = unquote(backend_ast) || API.Replicate
+            backend_mod = unquote(backend_ast) || Agent.API.Replicate
             # do classification
             # e.g. result = backend_mod.call(prompt_str)
             {result, data}

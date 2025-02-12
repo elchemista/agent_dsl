@@ -6,7 +6,7 @@ defmodule Agent.API.Replicate do
 
   # Synchronous call: performs a normal POST (stream: false) and then uses the "get" URL.
   def call(prompt, model \\ @default_model) do
-    token = System.get_env("REPLICATE_API_TOKEN")
+    token = System.get_env("REPLICATE_API_KEY")
     body = Jason.encode!(%{input: %{prompt: prompt}, stream: false})
 
     headers = [
@@ -36,7 +36,7 @@ defmodule Agent.API.Replicate do
   end
 
   def get_result(url) when is_bitstring(url) do
-    token = System.get_env("REPLICATE_API_TOKEN")
+    token = System.get_env("REPLICATE_API_KEY")
 
     headers = [
       {"Content-Type", "application/json"},

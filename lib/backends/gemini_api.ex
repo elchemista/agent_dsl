@@ -16,7 +16,7 @@ defmodule Agent.API.Gemini do
   Returns `{:ok, content}` on success or an error tuple on failure.
   """
   def call(prompt, model \\ @default_model) do
-    token = System.get_env("GOOGLE_API_KEY")
+    token = System.get_env("GEMINI_API_KEY")
 
     body =
       Jason.encode!(%{
@@ -72,7 +72,7 @@ defmodule Agent.API.Gemini do
   """
   def stream(id, prompt, model \\ @default_model) do
     parent = self()
-    token = System.get_env("GOOGLE_API_KEY")
+    token = System.get_env("GEMINI_API_KEY")
 
     body =
       Jason.encode!(%{
