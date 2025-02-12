@@ -21,7 +21,7 @@ export OPENAI_API_KEY=xxxx
 
 ```elixir 
 defmodule MyAgent do
-  use AgentDSL
+  use Agent.DSL
   alias Agent.API.{Replicate, Gemini, OpenAi}
 
   agent do
