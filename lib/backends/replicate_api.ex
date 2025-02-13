@@ -1,4 +1,4 @@
-defmodule Agent.API.Replicate do
+defmodule Consulente.Agents.API.Replicate do
   @replicate_url "https://api.replicate.com/v1/models"
   @default_model "meta/meta-llama-3-8b-instruct"
 
@@ -70,7 +70,7 @@ defmodule Agent.API.Replicate do
          stream_url when is_binary(stream_url) <- Map.get(urls, "stream"),
          {:ok, pid} <-
            Task.start_link(fn -> stream_loop({stream_url, token}, {parent, id}, "") end) do
-      {decoded["status"], decoded["id"], pid}
+      {decoded["status"], id, pid}
     else
       error -> error
     end
